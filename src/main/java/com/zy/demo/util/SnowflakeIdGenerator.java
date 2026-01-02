@@ -89,7 +89,7 @@ public class SnowflakeIdGenerator {
      *
      * @return SnowflakeIdGenerator
      */
-    public SnowflakeIdGenerator getInstance() {
+    public static SnowflakeIdGenerator getInstance() {
         return SnowflakeIdGeneratorInstance.INSTANCE;
     }
 
