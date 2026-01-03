@@ -1,5 +1,7 @@
 package com.zy.demo.obj;
 
+import com.zy.demo.annotation.Anno;
+
 import java.io.Serializable;
 
 /**
@@ -11,6 +13,9 @@ public class Entity implements Serializable,Cloneable {
     private int id;
 
     private String name;
+
+    @Anno(name = "anno", length = 10)
+    public boolean flag;
 
     public Entity(){
 

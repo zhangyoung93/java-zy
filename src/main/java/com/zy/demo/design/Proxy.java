@@ -1,7 +1,7 @@
 package com.zy.demo.design;
 
 /**
- * 代理模式
+ * 代理模式（静态代理）
  * @author zy
  */
 public class Proxy {
@@ -69,7 +69,9 @@ class HttpServiceImpl implements HttpService {
  */
 class HttpServiceProxy implements HttpService {
 
-    //实例化被代理类
+    /**
+     * 实例化被代理类
+     */
     private HttpService httpService = new HttpServiceImpl();
 
     /**
