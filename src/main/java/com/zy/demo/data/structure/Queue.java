@@ -1,4 +1,4 @@
-package com.zy.demo.util;
+package com.zy.demo.data.structure;
 
 import java.util.Arrays;
 
@@ -7,9 +7,10 @@ import java.util.Arrays;
  * 1、顺序队列
  * 2、链式队列
  * 3、循环队列
+ *
  * @param <E> 元素
  */
-public class QueueUtil<E> {
+public class Queue<E> {
 
     /* **** 循环队列----->start **** */
 
@@ -32,21 +33,22 @@ public class QueueUtil<E> {
     private int tail;
 
     //队列无参构造函数
-    public QueueUtil(){
+    public Queue() {
         this.objects = DEFAULT_OBJECTS;
     }
 
     /**
      * 队列初始化容量构造函数
+     *
      * @param capacity 容量
      */
-    public QueueUtil(int capacity){
+    public Queue(int capacity) {
         //校验输入容量
-        if(capacity > 0){
+        if (capacity > 0) {
             this.objects = new Object[capacity];
-        }else if(capacity == 0){
+        } else if (capacity == 0) {
             this.objects = DEFAULT_OBJECTS;
-        }else{
+        } else {
             throw new IllegalArgumentException("Illegal capacity=" + capacity);
         }
     }
@@ -54,7 +56,7 @@ public class QueueUtil<E> {
     /**
      * 获取队列元素个数
      */
-    public int size(){
+    public int size() {
         return this.size;
     }
 
@@ -71,22 +73,22 @@ public class QueueUtil<E> {
      * 时间复杂度：O(n) --数组扩容后要为元素重新分配索引
      * 空间复杂度：O(n) --扩容会创建新数组对象，数组大小与输入数据线性相关。
      */
-    private void expand(){
+    private void expand() {
         //满队列再添加元素需要扩容
-        if(this.size + 1 > this.objects.length){
+        if (this.size + 1 > this.objects.length) {
             //获取旧数组长度
             int oldLen = this.objects.length;
             //扩容后新数组长度
-            int newLen = oldLen >= DEFAULT_CAPACITY ? oldLen * 3/2 : DEFAULT_CAPACITY;
+            int newLen = oldLen >= DEFAULT_CAPACITY ? oldLen * 3 / 2 : DEFAULT_CAPACITY;
             //校验新数组长度
-            if(newLen >= Integer.MAX_VALUE){
-                throw new IllegalArgumentException("the length of array is too large:"+newLen);
+            if (newLen >= Integer.MAX_VALUE) {
+                throw new IllegalArgumentException("the length of array is too large:" + newLen);
             }
             //扩容
-            this.objects = Arrays.copyOf(this.objects,newLen);
+            this.objects = Arrays.copyOf(this.objects, newLen);
             //旧数组索引转换到新队列
-            for(int i = 1 ; i <= this.size ; i++){
-                this.objects[i] = this.objects[(this.head+i) % oldLen];
+            for (int i = 1; i <= this.size; i++) {
+                this.objects[i] = this.objects[(this.head + i) % oldLen];
             }
             //重置新的队头与队尾
             this.head = 0;
@@ -99,14 +101,15 @@ public class QueueUtil<E> {
      * 入队
      * 时间复杂度：如果需要扩容是O(n)；不需要扩容是O(1)。
      * 空间复杂度：如果需要扩容是O(n)；不需要扩容是O(1)。
+     *
      * @param e 元素
      * @return 入队成功返回true；否则返回false。
      */
-    public boolean add(E e){
+    public boolean add(E e) {
         //是否扩容
         expand();
         //计算队尾指针
-        this.tail = (this.tail+1) % this.objects.length;
+        this.tail = (this.tail + 1) % this.objects.length;
         //队尾添加元素
         this.objects[this.tail] = e;
         //计数
@@ -118,18 +121,19 @@ public class QueueUtil<E> {
      * 出队
      * 时间复杂度：O(1) --根据数组索引获取出队元素，是对顺序队列的O(n)复杂度的优化。
      * 空间复杂度：O(1) --使用有限的内存资源。
+     *
      * @return 出队元素
      */
     @SuppressWarnings("unchecked")
-    public E poll(){
+    public E poll() {
         //空队列校验
-        if(this.size == 0){
+        if (this.size == 0) {
             return null;
         }
         //计数队头指针
-        this.head = (this.head+1) % this.objects.length;
+        this.head = (this.head + 1) % this.objects.length;
         //获取队头元素
-        E e = (E)this.objects[this.head];
+        E e = (E) this.objects[this.head];
         //队头元素置空
         this.objects[this.head] = null;
         //计数
@@ -141,82 +145,82 @@ public class QueueUtil<E> {
      * 获取队头元素
      * 时间复杂度：O(1) --根据数组索引获取。
      * 空间复杂度：O(n) --使用有限的内存资源。
+     *
      * @return
      */
     @SuppressWarnings("unchecked")
-    public E peek(){
+    public E peek() {
         //空队列校验
-        if(this.size == 0){
+        if (this.size == 0) {
             return null;
         }
         //队头元素
-        return (E)this.objects[(this.head+1) % this.objects.length];
+        return (E) this.objects[(this.head + 1) % this.objects.length];
     }
 
     /**
      * 约瑟夫环：n个人围成一圈(编号从1到n)，从编号为start的人开始报数1，数到out的人出列，下一个人又从1开始报数，数到out的人又出列，直到n个人都出列。求解n个人出列的顺序。
      * 时间复杂度：O(n²)  -- 嵌套while循环，不过遍历次数是越来越少的。
      * 空间复杂度：O(n)  --创建循环队列、数组、数组缩容的空间复杂度都是O(n)
-     * @param n  --输入的人数
-     * @param start  --开始报数的人的编号
-     * @param out  --出列标记值，数到此标记值的人要出列。
+     *
+     * @param n     --输入的人数
+     * @param start --开始报数的人的编号
+     * @param out   --出列标记值，数到此标记值的人要出列。
      * @return 出队顺序结果
      */
-    public String josephus(int n,int start,int out){
+    public String josephus(int n, int start, int out) {
         //校验人数、标记值
-        if(n <= 0 || out <= 0){
+        if (n <= 0 || out <= 0) {
             return null;
         }
         //默认从第一个人开始报数
-        if(start <= 0){
+        if (start <= 0) {
             start = 1;
         }
         //创建容量为n的循环队列
-        QueueUtil<Integer> queueUtil = new QueueUtil<>(n);
+        Queue<Integer> queue = new Queue<>(n);
         //将n个人按照编号顺序入队
-        for(int i = 0 ; i < n ; i++){
-            queueUtil.add(i+1);
+        for (int i = 0; i < n; i++) {
+            queue.add(i + 1);
         }
         //设置出队指针起始位置，循环队列队头指针是在索引=0处的，所以要-1。
-        queueUtil.head = start - 1;
+        queue.head = start - 1;
         //数组索引计数器
         int index = 0;
         //创建结果数组
         int[] result = new int[n];
         //循环出队，直到队列中无人
-        while(queueUtil.size > 0){
+        while (queue.size > 0) {
             //每隔out-1人出队，即更改队头指针
-            queueUtil.head = (queueUtil.head + out) % queueUtil.objects.length;
+            queue.head = (queue.head + out) % queue.objects.length;
             //获取出队的人
-            Integer tmp = (Integer)queueUtil.objects[queueUtil.head];
+            Integer tmp = (Integer) queue.objects[queue.head];
             //不为空则添加到结果数组中
-            if(tmp != null){
+            if (tmp != null) {
                 result[index] = tmp;
                 //数组索引计数
                 index++;
             }
             //出队后此位置置空
-            queueUtil.objects[queueUtil.head] = null;
+            queue.objects[queue.head] = null;
             //队列元素自减
-            queueUtil.size--;
+            queue.size--;
             //出队后重新整理队列，
-            for(int i = queueUtil.head ; i < queueUtil.size ; i++){
-                queueUtil.objects[i] = queueUtil.objects[i+1];
+            for (int i = queue.head; i < queue.size; i++) {
+                queue.objects[i] = queue.objects[i + 1];
             }
             //剔除已出队的人，重新初始化新数组
-            queueUtil.objects = Arrays.copyOf(queueUtil.objects,queueUtil.size);
+            queue.objects = Arrays.copyOf(queue.objects, queue.size);
             //剔除后，队头指针自减
-            queueUtil.head--;
+            queue.head--;
         }
         //所有人都已出队后，队头指针归零。
-        queueUtil.head = 0;
+        queue.head = 0;
         //输出结果数组
         return Arrays.toString(result);
     }
 
     /* **** 循环队列----->end **** */
-
-
 
 
 //    /* **** 链式队列----->start **** */
@@ -233,14 +237,14 @@ public class QueueUtil<E> {
 //    /**
 //     * 无参构造方法
 //     */
-//    public QueueUtil(){
+//    public Queue(){
 //
 //    }
 //
 //    /**
 //     * 单向链表初始化头结点构造方法
 //     */
-//    public QueueUtil(E e){
+//    public Queue(E e){
 //        this.first = this.last = new Node<>(e,null);
 //        this.size++;
 //    }
@@ -367,7 +371,7 @@ public class QueueUtil<E> {
 //    /**
 //     * 队列的无参构造方法
 //     */
-//    public QueueUtil(){
+//    public Queue(){
 //        this.objects = DEFAULT_OBJECTS;
 //    }
 //
@@ -375,7 +379,7 @@ public class QueueUtil<E> {
 //     * 队列指定初始容量的构造方法
 //     * @param capacity 容量
 //     */
-//    public QueueUtil(int capacity){
+//    public Queue(int capacity){
 //        //校验输入容量
 //        if(capacity > 0){
 //            this.objects = new Object[capacity];
