@@ -35,6 +35,11 @@ public class CasLockDemo {
      */
     private int update = 101;
 
+    /**
+     * ThreadLocal
+     */
+    private static final ThreadLocal<Integer> THREAD_LOCAL = new ThreadLocal<>();
+
     public void setExpect(int expect) {
         this.expect = expect;
     }
@@ -98,10 +103,13 @@ public class CasLockDemo {
         for (int i = 0; i < THREAD_NUM; i++) {
             new Thread(() -> {
                 try {
+                    THREAD_LOCAL.set(1);
                     ATOMIC_INTEGER.incrementAndGet();
+                    THREAD_LOCAL.get();
                 } catch (Exception e) {
                     e.printStackTrace();
                 } finally {
+                    THREAD_LOCAL.remove();
                     //表示当前线程已执行完成
                     COUNT_DOWN_LATCH.countDown();
                 }
