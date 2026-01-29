@@ -26,6 +26,13 @@ public class User {
         this.userName = userName;
     }
 
+    public User(Long userId, String userName, boolean sex, int score) {
+        this.userId = userId;
+        this.userName = userName;
+        this.sex = sex;
+        this.score = score;
+    }
+
     public Long getUserId() {
         return userId;
     }
