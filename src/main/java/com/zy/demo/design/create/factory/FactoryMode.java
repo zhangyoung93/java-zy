@@ -12,6 +12,7 @@ public class FactoryMode {
         Factory factory = new AudiFactory();
         //再生产工厂特有的产品
         Car car = factory.createCar();
+        //汽车行驶
         car.drive();
     }
 }
