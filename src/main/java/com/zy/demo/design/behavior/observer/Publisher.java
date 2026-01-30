@@ -1,4 +1,4 @@
-package com.zy.demo.design.behavior;
+package com.zy.demo.design.behavior.observer;
 
 /**
  * 消息发布者
