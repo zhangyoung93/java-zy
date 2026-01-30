@@ -1,13 +1,13 @@
 package com.zy.demo.design.create.factory;
 
 /**
- * Ford
+ * Audi
  *
  * @author zy
  */
-public class Ford implements Car {
+public class AudiCar implements Car {
     @Override
     public void drive() {
-        System.out.println("Ford drive");
+        System.out.println("AudiCar drive");
     }
 }

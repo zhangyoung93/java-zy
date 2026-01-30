@@ -19,13 +19,13 @@ public class EasyFactoryMode {
         Car car;
         switch (brandName) {
             case "Benz":
-                car = new Benz();
+                car = new BenzCar();
                 break;
             case "Audi":
-                car = new Audi();
+                car = new AudiCar();
                 break;
             case "Ford":
-                car = new Ford();
+                car = new FordCar();
                 break;
             default:
                 throw new Exception("car not exists");

@@ -8,7 +8,7 @@ package com.zy.demo.design.create.factory;
 public class FordFactory implements CarFactory {
     @Override
     public Car createCar() {
-        return new Ford();
+        return new FordCar();
     }
 
     @Override
