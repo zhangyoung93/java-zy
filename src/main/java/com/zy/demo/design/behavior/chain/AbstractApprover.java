@@ -1,7 +1,7 @@
 package com.zy.demo.design.behavior.chain;
 
 /**
- * 审批者
+ * 抽象审批者
  *
  * @author zy
  */
