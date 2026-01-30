@@ -22,7 +22,7 @@ public class RamCleanStrategyContext {
     }
 
     /**
-     * 指向策略
+     * 执行策略
      */
     public void executeStrategy() {
         this.ramCleanStrategy.ramClean();
@@ -31,7 +31,7 @@ public class RamCleanStrategyContext {
     public static void main(String[] args) {
         //创建策略上下文对象
         RamCleanStrategyContext context = new RamCleanStrategyContext();
-        //设置策略
+        //选择策略
         context.setRamCleanStrategy(new LfuRamCleanStrategy());
         //执行策略
         context.executeStrategy();

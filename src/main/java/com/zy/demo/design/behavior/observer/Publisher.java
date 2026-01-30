@@ -1,7 +1,7 @@
 package com.zy.demo.design.behavior.observer;
 
 /**
- * 消息发布者
+ * 发布者
  *
  * @author zy
  */
