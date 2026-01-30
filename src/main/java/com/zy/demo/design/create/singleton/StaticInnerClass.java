@@ -1,4 +1,4 @@
-package com.zy.demo.design.singleton;
+package com.zy.demo.design.create.singleton;
 
 /**
  * 静态内部类
