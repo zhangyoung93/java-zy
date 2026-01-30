@@ -5,7 +5,7 @@ package com.zy.demo.design.create.factory;
  *
  * @author zy
  */
-public class AbsFactoryMode {
+public class AbstractFactoryMode {
 
     public static void main(String[] args) {
         //选择工厂
