@@ -5,7 +5,7 @@ package com.zy.demo.design.create.factory;
  *
  * @author zy
  */
-public class BenzFactory implements CarFactory {
+public class BenzFactory implements Factory {
     @Override
     public Car createCar() {
         return new BenzCar();

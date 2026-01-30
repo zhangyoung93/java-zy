@@ -5,7 +5,7 @@ package com.zy.demo.design.create.factory;
  *
  * @author zy
  */
-public interface CarFactory {
+public interface Factory {
 
     /**
      * 生产汽车

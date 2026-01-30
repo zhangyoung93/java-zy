@@ -9,11 +9,11 @@ public class AbstractFactoryMode {
 
     public static void main(String[] args) {
         //选择工厂
-        CarFactory carFactory = new FordFactory();
+        Factory factory = new FordFactory();
         //生产发动机
-        Engine engine = carFactory.createEngine();
+        Engine engine = factory.createEngine();
         //生产汽车
-        Car car = carFactory.createCar();
+        Car car = factory.createCar();
         //发动机安装
         engine.install();
         //汽车行驶
