@@ -1,7 +1,7 @@
 package com.zy.demo.design.structure.proxy;
 
 /**
- * LoginServiceProxy
+ * 代理类
  *
  * @author zy
  */
