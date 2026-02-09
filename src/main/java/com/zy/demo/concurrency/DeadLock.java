@@ -26,6 +26,12 @@ public class DeadLock {
             System.out.println("线程A等待资源A...");
             synchronized (RESOURCE_A) {
                 System.out.println("线程A持有资源A，等待资源B...");
+                try {
+                    //保证线程B先拿到资源B
+                    Thread.sleep(100L);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
                 synchronized (RESOURCE_B) {
                     System.out.println("线程A持有资源B");
                 }
@@ -38,6 +44,12 @@ public class DeadLock {
             System.out.println("线程B等待资源B...");
             synchronized (RESOURCE_B) {
                 System.out.println("线程B持有资源B，等待资源A...");
+                try {
+                    //保证线程A先拿到资源A
+                    Thread.sleep(100L);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
                 synchronized (RESOURCE_A) {
                     System.out.println("线程B持有资源A");
                 }
@@ -47,6 +59,14 @@ public class DeadLock {
         });
         threadA.start();
         threadB.start();
+        //等待线程的最终状态：阻塞
+        try {
+            Thread.sleep(500L);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        System.out.println("线程A的状态：" + threadA.getState());
+        System.out.println("线程B的状态：" + threadB.getState());
     }
 
     public static void main(String[] args) {
