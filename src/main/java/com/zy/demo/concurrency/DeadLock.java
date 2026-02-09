@@ -57,6 +57,7 @@ public class DeadLock {
             }
             System.out.println("线程B释放资源B，线程B执行完毕");
         });
+        //启动线程A、B
         threadA.start();
         threadB.start();
         //等待线程的最终状态：阻塞
