@@ -1,4 +1,4 @@
-package com.zy.demo.concurrency;
+package com.zy.demo.concurrency.lock;
 
 import java.util.concurrent.TimeUnit;
 
